@@ -20,8 +20,6 @@ TARGET      = exo_frame
 
 QT          += widgets network gui
 
-#DEFINES     += NZMQT_LIB
-
 SOURCES     +=  src/main.cpp \
                 src/ExoFrame.cpp \
                 ./third_party_libs/nzmqt/src/nzmqt/nzmqt.cpp
