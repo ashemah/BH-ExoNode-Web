@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, RedirectView
-from views import MovieListView, TVShowListView, SearchView, DownloadListView, DownloadView, DownloadItemsView, NowPlayingView, MediaControlView
+from views import MovieListView, TVShowListView, SearchView, DownloadListView, DownloadView, DownloadItemsView, NowPlayingView, MediaControlView, UpgradeView
 
 urlpatterns = patterns('',
     url(r'^movies/$', MovieListView.as_view(), name='movies'),
@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^downloads/list/$', DownloadItemsView.as_view(), name='download-items'),
     url(r'^media/control/$', csrf_exempt(MediaControlView.as_view()), name='media-control'),
     url(r'^media/nowplaying/$', NowPlayingView.as_view(), name='nowplaying'),
+    url(r'^upgrade/$', UpgradeView.as_view(), name='upgrade'),
 )

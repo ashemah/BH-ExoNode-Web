@@ -17,24 +17,26 @@ for pid in l:
 
         cmdline = str(process.cmdline)
 
-        if 'manage.py' in cmdline and 'exo_node' in cmdline:
+        if 'manage.py' in cmdline:
             print process.cmdline
             rspid = process.pid
+            break
 
     except psutil.AccessDenied:
         pass
 
-process = psutil.Process(rspid)
-
-print "Killing process"
-
-process.kill()
+if rspid is not None:
+    process = psutil.Process(rspid)
+    print "Killing process %d" % rspid
+    process.kill()
+    time.sleep(1)
 
 print "Upgrading"
 
+call('/usr/bin/git pull .', shell=True)
 time.sleep(1)
 
 print "Restarting..."
 
-Popen('python manage.py runserver 0.0.0.0:8000', shell=True)
+Popen('python manage.py runserver 0.0.0.0:8000', shell=True, close_fds=True)
 

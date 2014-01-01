@@ -1,4 +1,5 @@
 import os
+import subprocess
 import urllib
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
@@ -162,3 +163,11 @@ class NowPlayingView(View):
             'total_length': total_length,
             'title': title
         })
+
+class UpgradeView(View):
+
+    def get(self, request):
+
+        subprocess.Popen('python upgrade.py', shell=True, close_fds=True)
+
+        return HttpResponseRedirect("/movies/")
