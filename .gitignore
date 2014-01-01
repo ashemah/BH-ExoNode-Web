@@ -6,3 +6,11 @@ local_settings.py
 **/.DS_Store
 
 build/
+exo_node/inbox/
+exo_node/media/
+
+/exo_node/db.sqlite3
+
+/exo_node/vlcpid
+
+/exo_node/pidfile

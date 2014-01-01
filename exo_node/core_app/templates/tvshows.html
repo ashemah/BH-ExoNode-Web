@@ -1,0 +1,29 @@
+{% extends "media_list.html" %}
+
+{% block page_id %}tvshows{% endblock %}
+
+{% block media_list %}
+
+    {% for series in object_list %}
+    <h3>{{ series.display_name }}</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="85%">Title</th>
+            <th width="10%">Controls</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in series.sorted_items %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.display_name }}</td>
+            <td><a href="#" data-media-id="{{ item.id }}" class="btn btn-primary btn-play">Play</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+
+{% endblock %}

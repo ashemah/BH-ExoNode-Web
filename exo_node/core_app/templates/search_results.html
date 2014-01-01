@@ -1,0 +1,27 @@
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="75%">Title</th>
+            <th width="10%"></th>
+            <th width="10%">Controls</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in object_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.display_name }}</td>
+            <td><div class="pull-right"><span class="label label-default">S:{{ item.seeder_count }}</span> <span class="label label-default">L:{{ item.leecher_count }}</span></div></td>
+            <td><a href="/downloads/add/?url={{ item.url }}&name={{ item.display_name }}" class="btn btn-primary play">Spank it!</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td></td>
+            <td>No results found for '{{ search_query }}'.</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>

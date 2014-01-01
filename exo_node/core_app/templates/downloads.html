@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_id %}downloads{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+
+    setInterval(function(){
+        $('#downloads-list').load('/downloads/list/');
+    }, 10000);
+
+    $('#downloads-list').load('/downloads/list/');
+{% endblock %}
+
+{% block main %}
+
+    <div id="downloads-list">
+    </div>
+
+{% endblock %}

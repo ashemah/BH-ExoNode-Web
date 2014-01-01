@@ -1,0 +1,39 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th width="5%">#</th>
+        <th width="65%">Title</th>
+        <th width="15%"></th>
+        <th width="5%"></th>
+        <th width="10%"></th>
+        <th width="10%">Controls</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.display_name }}</td>
+            <td>{% if not item.is_complete %}S:{{ item.seeder_count }} L:{{ item.leecher_count }} - {{ item.download_speed_kps }} Kb/s{% endif %}</td>
+            <td>{{ item.percent_complete }}%</td>
+            <td>
+                <div class="progress {% if not item.is_complete %}progress-striped active{% endif %}">
+                    <div class="progress-bar {% if item.is_complete %}progress-bar-success{% endif %}"  role="progressbar" aria-valuenow="{{ item.percent_complete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.percent_complete }}%">
+                        <span class="sr-only">{{ item.percent_complete }}% Complete</span>
+                    </div>
+                </div>
+            </td>
+            <td><a href="/play/?media_id={{ item.id }}" class="btn btn-primary play">Pause</a></td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td></td>
+            <td>You ain't got no damn downloads scheduled, fool! - <a href="/search/">Search for somethin'.</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
