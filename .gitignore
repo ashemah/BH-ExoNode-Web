@@ -14,3 +14,7 @@ exo_node/media/
 /exo_node/vlcpid
 
 /exo_node/pidfile
+
+/.idea/workspace.xml
+
+/.idea/misc.xml
