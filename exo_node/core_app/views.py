@@ -1,17 +1,14 @@
-import os
 import subprocess
 import urllib
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, View
-import time
 from tasks import sync_downloads
 from models import MediaItem, MediaGroup, MediaDownload, NowPlaying
 import player_ctrl
-from tpb import TPB
-from tpb import CATEGORIES, ORDERS
 import guessit
+from KickassAPI import Search, Latest, User, CATEGORY, ORDER
 from downloader_ctrl import DownloadManager
 
 class MovieListView(ListView):
@@ -92,17 +89,18 @@ class SearchView(View):
         if not query:
             cleaned_results = request.session.get('search_results', None)
             query = request.session.get('search_query', None)
-        elif 'sanni' in query.lower():
-            cleaned_results = [{'display_name': 'I <3 Sanni Harrison :-D'}]
         else:
-            t = TPB('https://thepiratebay.org')
-            results = t.search(query, category=CATEGORIES.VIDEO.ALL)
+            results = Search(query)
 
-            cleaned_results = [{'display_name': result.title,
-                                'url': urllib.quote(result.magnet_link),
-                                'seeder_count': result.seeders,
-                                'leecher_count': result.leechers
-                               } for result in results]
+            cleaned_results = []
+
+            for result in results:
+                cleaned_results.append({
+                    'display_name': result.name,
+                    'url': result.magnet_link,
+                    'seeder_count': result.seed,
+                    'leecher_count': result.leech,
+                })
 
             request.session['search_results'] = cleaned_results
             request.session['search_query'] = query

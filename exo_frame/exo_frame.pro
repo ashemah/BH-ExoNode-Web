@@ -18,7 +18,7 @@
 
 TARGET      = exo_frame
 
-QT          += widgets network gui
+QT          += widgets core network gui
 
 SOURCES     +=  src/main.cpp \
                 src/ExoFrame.cpp \
@@ -30,4 +30,4 @@ HEADERS     +=  src/ExoFrame.h \
 FORMS       += src/player.ui
 
 LIBS        += -L$$_PRO_FILE_PWD_/third_party_libs/vlc-qt/lib -L/usr/local/lib -L$$_PRO_FILE_PWD_/third_party_libs/nzmqt/lib -lvlc-qt -lvlc-qt-widgets -lzmq -lnzmqtd
-INCLUDEPATH += ./third_party_libs/vlc-qt/include /usr/local/include $$_PRO_FILE_PWD_/third_party_libs/nzmqt/include ./third_party_libs/nzmqt/externals/include
+INCLUDEPATH += $$_PRO_FILE_PWD_/third_party_libs/vlc-qt/include /usr/local/include $$_PRO_FILE_PWD_/third_party_libs/nzmqt/include ./third_party_libs/nzmqt/externals-src/cppzmq /usr/local/Cellar/zeromq/4.0.3/include

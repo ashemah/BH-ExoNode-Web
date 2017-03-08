@@ -21,25 +21,33 @@ def sync_downloads():
     for info in downloads:
 
         gid = info['gid']
-        bt = info['bittorrent']
 
         valid_gids.append(gid)
 
         total_length = int(info['totalLength'])
         completed_length = int(info['completedLength'])
         download_speed = int(info['downloadSpeed'])
-        seeder_count = int(info['numSeeders'])
-        leecher_count = int(info['connections'])
+        seeder_count = 0
+        leecher_count = 0
 
         status = info['status']
 
-        if 'info' in bt:
-            bt_info = bt['info']
-            name = bt_info['name']
-        else:
-            name = 'Retrieving download info...'
+        name = 'Unknown'
 
-        print info
+        if 'bittorrent' in info:
+
+            seeder_count = int(info['numSeeders'])
+            leecher_count = int(info['connections'])
+
+            bt = info['bittorrent']
+
+            if 'info' in bt:
+                bt_info = bt['info']
+                name = bt_info['name']
+            else:
+                name = 'Retrieving download info...'
+
+            print info
 
         try:
             item = MediaDownload.objects.get(download_id=gid)
@@ -66,7 +74,7 @@ def sync_downloads():
 
         item.save()
 
-    invalids = MediaDownload.objects.filter(~Q(download_id__in=valid_gids))
-
-    for invalid in invalids:
-        invalid.delete()
+    # invalids = MediaDownload.objects.filter(~Q(download_id__in=valid_gids))
+    #
+    # for invalid in invalids:
+    #     invalid.delete()

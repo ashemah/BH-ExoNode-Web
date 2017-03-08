@@ -17,8 +17,7 @@
 *****************************************************************************/
 
 
-#include <QtCore/QCoreApplication>
-#include <QtCore/QTextCodec>
+#include <QApplication>
 
 #include <QApplication>
 #include <QHostAddress>
@@ -29,10 +28,6 @@ int main(int argc, char *argv[])
 {
     QCoreApplication::setApplicationName("Exo");
     QCoreApplication::setAttribute(Qt::AA_X11InitThreads);
-
-#if QT_VERSION < 0x050000
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-#endif
 
     QApplication app(argc, argv);
 
